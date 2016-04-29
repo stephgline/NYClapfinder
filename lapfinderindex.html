@@ -37,6 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
     <title>lapfinderNYC</title>
 
@@ -145,26 +146,28 @@
                 <form  action="/lapfinderoutput" method="GET">
                     <div class="form-group">
                       <label for="LFID">Enter your NYC starting address</label>
-                      <input type="text" class="form-control" id="LFID" name="LFID" placeholder="e.g. 45 West 25th Street, NY, NY" required="true">
-                       <!--
+                      <input type="text" class="form-control" id="LFID" name="LFID" placeholder="e.g. 45 West 25th Street, NY, NY" ng-required="true">
+                       <br>
+                       <br>
                       <label class="control-label" for="pool">Or select a pool</label>
                         <select id="pool" name="pool" class="form-control">
-                          <option value="Asser Levy" selected="selected">Asser Levy</option>
-                          <option value="Brownsville" selected="selected">Brownsville</option>
-                          <option value="Chelsea" selected="selected">Chelsea</option>
-                          <option value="Flushing Meadows Corona Park" selected="selected">Flushing Meadows Corona Park</option>
-                          <option value="Gertrude Eredel" selected="selected">Gertrude Eredel</option>
-                          <option value="Hansborough" selected="selected">Hansborough</option>
-                          <option value="Metropolitan" selected="selected">Metropolitan</option>
-                          <option value="St. Johns" selected="selected">St. Johns</option>
-                          <option value="Saint Marys" selected="selected">Saint Marys</option>
-                          <option value="Tony Dapolito" selected="selected">Tony Dapolito</option>
-                          <option value="Recreation Center 54" selected="selected">Recreation Center 54</option>
-                          <option value="Roy Wilkins" selected="selected">Roy Wilkins</option>
-                          <option value="None" selected="selected">None</option>
+                          <option value="None" class="pool"  id="pool" name="pool">None</option>
+                          <option value="Asser Levy" class="pool"  id="pool" name="pool">Asser Levy</option>
+                          <option value="Brownsville" class="pool"  id="pool" name="pool">Brownsville</option>
+                          <option value="Chelsea" class="pool"  id="pool" name="pool">Chelsea</option>
+                          <option value="Flushing Meadows Corona Park" class="pool"  id="pool" name="pool">Flushing Meadows Corona Park</option>
+                          <option value="Gertrude Eredel" class="pool"  id="pool" name="pool">Gertrude Eredel</option>
+                          <option value="Hansborough" class="pool"  id="pool" name="pool">Hansborough</option>
+                          <option value="Metropolitan" class="pool"  id="pool" name="pool">Metropolitan</option>
+                          <option value="St. Johns" class="pool"  id="pool" name="pool">St. Johns</option>
+                          <option value="Saint Marys" sclass="pool"  id="pool" name="pool">Saint Marys</option>
+                          <option value="Tony Dapolito" class="pool"  id="pool" name="pool">Tony Dapolito</option>
+                          <option value="Recreation Center 54" class="pool"  id="pool" name="pool">Recreation Center 54</option>
+                          <option value="Roy Wilkins" class="pool"  id="pool" name="pool">Roy Wilkins</option>
+                          
                         
                       </select>
-                      -->
+                      
                     </div>
                     <br>
               <div>
