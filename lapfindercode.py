@@ -45,6 +45,11 @@ def addresscoord(startaddress):
             continue
         else:
             laphours.append(i[0])
+
+    #for days with no laps
+    if laphours == []:
+        laphours.append('There are no lap hours today')
+
     #get day and date
     today = time.strftime("%A %D")
     #retrieve the pool website to return to the user
@@ -60,3 +65,38 @@ def addresscoord(startaddress):
         hours.append(dict(Monday=result[0], Tuesday=result[1], Wednesday=result[2], Thursday=result[3], Friday=result[4],Saturday=result[5], Sunday=result[6]))
   
     return closepool, pooladdress, laphours, today, website, hours
+
+#for picking a pool directly from the dropdown
+def directpool(poolchoice):
+    closepool = poolchoice
+    now = time.strftime("%A")
+    con = mdb.connect('localhost', 'root', '', 'lap_schedule')
+    poolhoursplace = pd.read_sql('SELECT p.Pool, a.address, p.%s FROM lap_schedule_table5 AS p JOIN pool_table6 AS a ON p.Pool = a.swimming_pool WHERE Pool = "%s"' %(now, closepool) , con)
+    pooladdress = poolhoursplace['address'].iloc[0]
+    laplist = poolhoursplace.ix[:, 2:].values.tolist()
+    laphours = []
+    for i in laplist:
+        if i[0] == 'None':
+            continue
+        else:
+            laphours.append(i[0])
+            
+    if laphours == []:
+        laphours.append('There are no lap hours today')
+
+
+    today = time.strftime("%A %D")
+    poolswebsdict = pickle.load(open("app/static/poolsandwebsites.p", "rb"))
+    website = poolswebsdict[closepool]
+
+    cur = con.cursor()
+    cur.execute('SELECT Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday FROM  lap_schedule_table5 WHERE Pool = "%s";' %(closepool))
+    query_results = cur.fetchall()
+    hours = []
+    for result in query_results:
+        hours.append(dict(Monday=result[0], Tuesday=result[1], Wednesday=result[2], Thursday=result[3], Friday=result[4],Saturday=result[5], Sunday=result[6]))
+    
+    return closepool, pooladdress, laphours, today, website, hours
+
+
+
