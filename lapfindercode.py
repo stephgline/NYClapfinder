@@ -2,7 +2,7 @@ import geocoder
 import pandas as pd
 import pymysql as mdb
 import numpy as np
-import time
+import os, time
 from geopy.distance import vincenty
 import pickle
 
@@ -30,6 +30,9 @@ def addresscoord(startaddress):
             continue
     #retrieve closest pool
     closepool = mindict[localmin]
+    #set timezone since aws is not in EST
+    os.environ['TZ'] = 'EST+05EDT,M4.1.0,M10.5.0'
+    time.tzset()
     #get the current day of the week
     now = time.strftime("%A")
     #connect to the database
@@ -45,6 +48,9 @@ def addresscoord(startaddress):
             continue
         else:
             laphours.append(i[0])
+
+    #join items in list so return a non-list variable to the website
+    laphours = ", ".join(laphours)
 
     #for days with no laps
     if laphours == []:
@@ -69,6 +75,9 @@ def addresscoord(startaddress):
 #for picking a pool directly from the dropdown
 def directpool(poolchoice):
     closepool = poolchoice
+    #set timezone since aws is not in EST
+    os.environ['TZ'] = 'EST+05EDT,M4.1.0,M10.5.0'
+    time.tzset()
     now = time.strftime("%A")
     con = mdb.connect('localhost', 'root', '', 'lap_schedule')
     poolhoursplace = pd.read_sql('SELECT p.Pool, a.address, p.%s FROM lap_schedule_table5 AS p JOIN pool_table6 AS a ON p.Pool = a.swimming_pool WHERE Pool = "%s"' %(now, closepool) , con)
@@ -83,6 +92,10 @@ def directpool(poolchoice):
             
     if laphours == []:
         laphours.append('There are no lap hours today')
+
+    #join items in list so return a non-list variable to the website
+    laphours = ", ".join(laphours)
+
 
 
     today = time.strftime("%A %D")
